@@ -24,7 +24,7 @@ import DancingDot from '../components/DancingDot'
 import AutoTriggerController from '../components/AutoTriggerController'
 import Explosion from '../components/Explosion'
 import { useFrame } from '@react-three/fiber'
-
+import Overlay from '../components/Overlay'
 // if chosen different model, to change the position, rotation and scale of the model, use the controls below
 // video timeline start from 2:00:00
 const Hero = () => {
@@ -37,10 +37,13 @@ const Hero = () => {
     const clicked = useStore((state) => state.clicked);
     const loadAudio = useStore((state) => state.api.loaded);
     const startAudio = useStore((state) => state.api.start);
-    const isHeroVisible = useSectionVisible('hero')
+    const isHeroVisible = useSectionVisible('home')
+    
     const audio = useStore((state) => state.audio)
+    const [resetKey, setResetKey] = useState(0);
     const stopAudio = useStore((state) => state.api.stop);
     const [autoBeat, setAutoBeat] = useState(true); // new
+    const [explosionKey, setExplosionKey] = useState(0);
     useEffect(() => {
         loadAudio(); // Preloads the 3 MP3s
     }, []);
@@ -48,35 +51,48 @@ const Hero = () => {
     setMousePos([e.clientX, e.clientY]);
     };
     const handleClick = () => {
-        if (!clicked) {
-            startAudio();
-            setAutoBeat(true);
-        } else {
-            stopAudio();         // Stop audio
-            setAutoBeat(false);  // Disable auto-beat
-            setTrigger(false);   // Stop explosion
-        }
+        const api = useStore.getState().api;
+            if (!clicked) {
+                api.click(true);
+                startAudio();
+                setAutoBeat(true);
+                setExplosionKey(prev => prev + 1); // Update key
+            } else {
+                stopAudio();
+                api.click(false);
+                setAutoBeat(false);
+                setTrigger(false);
+                setExplosionKey(prev => prev + 1); // Update key again
+            }
     };
 
 
-    useEffect(() => {
-    if (!audio || !audio.drums || !audio.snare || !audio.synth) return;
 
-    if (!isHeroVisible && clicked) {
-        // 🛑 STOP everything
-        stopAudio();
-        setTrigger(false);
-    }
+    useEffect(() => {
+        if (!audio || !audio.drums || !audio.snare || !audio.synth) return;
+
+        if (!isHeroVisible && clicked) {
+            console.log("Hero out of view — resetting...");
+            stopAudio();
+            setAutoBeat(false);
+            setTrigger(false);
+            useStore.getState().api.click(false);
+            setResetKey(prev => prev + 1); // force re-mount
+        }
     }, [isHeroVisible]);
+
+
+
 
     
   return (
     <section id="home" className='min-h-screen w-full flex flex-col relative'>
+        <Overlay />
         {/* Intro Section */}
         <div className='w-full mx-auto flex flex-col sm:mt-30 mt-20 c-space gap-3'>
             {/* waving-hand working given in index.css */}
             <p className="sm:text-3xl text-xl font-medium text-white text-center font-generalsans"> Hi, I am Malhar <span className='waving-hand'> 👋 </span></p>
-            <p className="hero_tag text-gray_gradient">Seeking Tech</p>
+            <p className="hero_tag text-gray_gradient">Driven by Code, Inspired by Innovation</p>
         </div>
         {/* Model with Three.js  */}
         <div className="w-full h-full absolute inset-0">
@@ -96,15 +112,18 @@ const Hero = () => {
                             <DancingDot />
                             <AutoTriggerController autoBeat={autoBeat} setTrigger={setTrigger} />
                             
-                            
+                            <React.Fragment key={resetKey}>
                             <Bust
                                 position={[0.2, isMobile ? -7.5 : -9, 0.7]} // moved slightly right
                                 rotation={[-0.3, -2, 0]} 
                                 scale={isMobile ? 1.5 : 2}
                                 trigger={trigger}
                             />
-                            <Explosion position={[0.2, -1, 0]} beat={0} />
-                            <Explosion position={[-0.3, -3, -1]} beat={1} />
+                            <Explosion key={`explosion-${explosionKey}-0`} position={[0.2, -1, 0]} beat={0} />
+                            <Explosion key={`explosion-${explosionKey}-1`} position={[-0.3, -3, -1]} beat={1} />
+
+
+                            </React.Fragment>
 
                         </HeroCamera>
                         
@@ -114,7 +133,7 @@ const Hero = () => {
                 </Suspense>
             </Canvas>
         </div>
-        {/* <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
+        {/* <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space mt-20">
             <a href="#about" className="w-fit">
             <Button name="Let's work together" isBeam containerClass="sm:w-fit w-full sm:min-w-96" />
             </a>

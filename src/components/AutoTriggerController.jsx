@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import useStore from '../hooks/store';
 
 const AutoTriggerController = ({ autoBeat, setTrigger }) => {
@@ -8,6 +8,13 @@ const AutoTriggerController = ({ autoBeat, setTrigger }) => {
 
   const beatCounter = useRef(0);
   const justTriggered = useRef(false); // prevent multiple triggers per frame
+
+  useEffect(() => {
+    if (!clicked) {
+      setTrigger(0); // Rebuild statue if user scrolls away
+      beatCounter.current = 0; // optional: reset beat counter for clean restart
+    } 
+  }, [clicked]);
 
   useFrame(() => {
     if (clicked && autoBeat && drums.signal && !justTriggered.current) {
@@ -32,6 +39,7 @@ const AutoTriggerController = ({ autoBeat, setTrigger }) => {
         justTriggered.current = false;
       }, 100); // small delay to avoid multiple triggers per frame
     }
+    
   });
 
   return null;

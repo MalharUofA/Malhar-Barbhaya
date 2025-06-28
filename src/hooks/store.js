@@ -80,13 +80,14 @@ async function createAudio(url, { threshold, expire } = {}) {
 const mockData = () => ({ signal: false, avg: 0, gain: 1, data: [] })
 
 const useStore = create((set, get) => {
-  const drums = createAudio('/drums.mp3', { threshold: 10, expire: 500 })
-  const snare = createAudio('/snare.mp3', { threshold: 40, expire: 500 })
-  const synth = createAudio('/synth.mp3')
+  const drums = createAudio('/assets/drums.mp3', { threshold: 10, expire: 500 })
+  const snare = createAudio('/assets/snare.mp3', { threshold: 40, expire: 500 })
+  const synth = createAudio('/assets/synth.mp3')
 
   return {
     loaded: false,
     clicked: false,
+    hasInteractedOnce: false,
     audio: { drums: mockData(), snare: mockData(), synth: mockData() },
     track: { synthonly: false, kicks: 0, loops: 0 },
     api: {
@@ -118,7 +119,7 @@ const useStore = create((set, get) => {
         if (file.start) file.start()
         })
 
-        set({ clicked: true })
+        set({ clicked: true, hasInteractedOnce: true })
 
         addEffect(() => {
         Object.values(audio).forEach(file => {
@@ -137,7 +138,11 @@ const useStore = create((set, get) => {
             track.kicks = 0
         }
         })
-    }
+    },
+      // ✅ Add this new method to directly set `clicked` value
+      click(state) {
+        set({ clicked: state });
+      }
     }
   }
 })

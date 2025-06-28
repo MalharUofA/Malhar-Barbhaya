@@ -61,9 +61,9 @@ export const myProjects = [
     title: 'Scheduler',
     desc: 'A task prioritization app that intelligently categorizes and schedules tasks with real-time updates.',
     subdesc: 'Created with Python, Flask, HTML, and JavaScript. Features include dynamic UI updates and cloud deployment on Zeet and GCP.',
-    href: 'https://github.com/SirKairon/Scheduler',
+    href: 'https://scheduler-0r4v-main-qnxr6lu2aq-wm.a.run.app/',
     texture: '/textures/project/schedular.mp4',
-    logo: 'public/Schedular Logo.png',
+    logo: 'assets/Schedular Logo.png',
     logoStyle: {
       backgroundColor: '#0000',
       border: '0.2px solid rgba(208, 213, 221, 1)',
@@ -71,9 +71,10 @@ export const myProjects = [
     },
     spotlight: '/assets/spotlight1.png',
     tags: [
-      { id: 1, name: 'Flask', path: 'public/Flask.png' },
-      { id: 2, name: 'JavaScript', path: '/public/Java logo.png' },
-      { id: 3, name: 'Zeet', path: '/public/Google-Cloud-Symbol.png' },
+      { id: 1, name: 'Flask', path: 'assets/Flask.png' },
+      { id: 2, name: 'JavaScript', path: '/assets/Java logo.png' },
+      { id: 3, name: 'Zeet', path: '/assets/Google-Cloud-Symbol.png' },
+      { id:4, name:'Python', path: '/assets/Python.png' },
     ],
   },
   {
@@ -82,7 +83,7 @@ export const myProjects = [
     subdesc: 'Built using Django, SQL, and JavaScript. Includes habit tracking, sub-task management, and custom reminders with a dynamic HTML/CSS interface.',
     href: 'https://github.com/MalharUofA/HabitBuilder',
     texture: '/textures/project/Habit builder.mp4',
-    logo: 'public/Habit builder logo.png ',
+    logo: 'assets/Habit builder logo.png ',
     logoStyle: {
       backgroundColor: '#60f5a1',
       border: '0.2px solid #36201D',
@@ -90,9 +91,10 @@ export const myProjects = [
     },
     spotlight: '/assets/spotlight3.png',
     tags: [
-      { id: 1, name: 'Django', path: 'public/djangoproject.svg' },
-      { id: 2, name: 'SQL', path: 'public/SQL.png' },
-      { id: 3, name: 'JavaScript', path: 'public/Js.jpg' },
+      { id: 1, name: 'Django', path: 'assets/djangoproject.svg' },
+      { id: 2, name: 'SQL', path: 'assets/SQL.png' },
+      { id: 3, name: 'JavaScript', path: 'assets/Js.jpg' },
+      { id:4, name:'Python', path: '/assets/Python.png' },
     ],
   },
   {
@@ -101,7 +103,7 @@ export const myProjects = [
     subdesc: 'Developed with React.js, JavaScript, and TMDb API. Features include API integration, component reuse, and animated rating display.',
     href: 'https://github.com/MalharUofA/MovieVerse',
     texture: '/textures/project/movieverse.mp4',
-    logo: 'public/Movieverse logo.png',
+    logo: 'assets/Movieverse logo.png',
     logoStyle: {
       backgroundColor: '#1C1A43',
       border: '0.2px solid #17293E',
@@ -110,7 +112,7 @@ export const myProjects = [
     spotlight: '/assets/spotlight5.png',
     tags: [
       { id: 1, name: 'React.js', path: '/assets/react.svg' },
-      { id: 2, name: 'JavaScript', path: 'public/Js.jpg' },
+      { id: 2, name: 'JavaScript', path: 'assets/Js.jpg' },
     ],
   },
 
@@ -120,7 +122,7 @@ export const myProjects = [
     subdesc: 'Built using Java, Android Studio, Firebase, and Google Maps API. Integrated FCM for real-time updates and geolocation features.',
     href: 'https://github.com/CMPUT301F24helios/Aethon-Events',
     texture: '/textures/project/aethon.mp4',
-    logo: 'public/aethon logo.png',
+    logo: 'assets/aethon logo.png',
     logoStyle: {
       backgroundColor: '#0E1F38',
       border: '0.2px solid #0E2D58',
@@ -128,18 +130,18 @@ export const myProjects = [
     },
     spotlight: '/assets/spotlight4.png',
     tags: [
-      { id: 1, name: 'Java', path: '/public/Java logo.png' },
-      { id: 2, name: 'Firebase', path: 'public/firebase logo.png' },
-      { id: 3, name: 'Android Studio', path: 'public/android studio.png' },
+      { id: 1, name: 'Java', path: '/assets/Java logo.png' },
+      { id: 2, name: 'Firebase', path: '/assets/firebase logo.png' },
+      { id: 3, name: 'Android Studio', path: '/assets/android studio.png' },
     ],
   },
   {
     title: 'Last Ferry to Crocuta',
     desc: 'A Unity-based card-battle game with four game modes, enemy AI scaling, and 10-level progression.',
     subdesc: 'Built using C# and Unity as a capstone project, focused on gameplay logic, difficulty scaling, and level persistence.',
-    href: 'https://github.com/MalharUofA/Last-Ferry-to-Crocuta',
+    href: 'https://team-playing-mantis.itch.io/last-ferry-to-crocuta',
     texture: '/textures/project/last ferry to crocuta.mp4',
-    logo: 'public/Last Ferry to Crocuta.png',
+    logo: 'assets/Last Ferry to Crocuta.png',
     logoStyle: {
       backgroundColor: '#1B1B1B',
       border: '0.2px solid #2E2E2E',
@@ -147,8 +149,8 @@ export const myProjects = [
     },
     spotlight: '/assets/spotlight1.png',
     tags: [
-      { id: 1, name: 'C#', path: 'public/Csharp.png' },
-      { id: 2, name: 'Unity', path: 'public/Unity.png' },
+      { id: 1, name: 'C#', path: 'assets/csharp.png' },
+      { id: 2, name: 'Unity', path: 'assets/Unity.png' },
     ],
   },
 ];
@@ -180,6 +182,6 @@ export const workExperiences = [
       'Created real-time dashboards for monitoring with Plotly Dash.',
       'Tested and deployed on Linux-based systems.',
     ],
-    icon: 'public/ualberta.jpg',
+    icon: 'assets/ualberta.jpg',
   },
 ];

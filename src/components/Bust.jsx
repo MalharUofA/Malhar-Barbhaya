@@ -17,7 +17,8 @@ const Bust = (props) => {
 
   const { drums, synth } = useStore((state) => state.audio);
   const track = useStore.getState().track;
-  const clicked = useStore((state) => state.clicked);
+ const clicked = useStore((state) => state.clicked);
+  const prevClicked = useRef(clicked);
 
   const floatFrame = useRef(0);
   const lastSynthState = useRef(false);
@@ -35,9 +36,21 @@ const Bust = (props) => {
       action.play();
     });
   }, [actions]);
+  useEffect(() => {
+      if (materials['default']) {
+        materials['default'].color = new THREE.Color('#FFFAFA'); // Change to desired color
+      }
+  }, [materials]);
+
 
   useFrame((_, delta) => {
     if (!mixer || !materials.inner || !drums || !synth) return;
+    // Detect rising edge: when clicked becomes true again
+    if (!prevClicked.current && clicked) {
+      time.current = 0;
+      mixer.setTime(0);
+    }
+    prevClicked.current = clicked;
 
     const beat = (drums.avg * drums.gain) / 30;
     materials.inner.color.copy(red).multiplyScalar(beat);

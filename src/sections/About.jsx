@@ -59,8 +59,9 @@ const About = () => {
                         <p className='grid-subtext'>
                             I am based in Canada, but I am open to working with clients from all over the world.
                         </p>
-                        <Button name="Let's work together" isBeam containerClass="w-full mt-10" />
-
+                        <a href="#contact">
+                            <Button name="Let's work together" isBeam containerClass="w-full mt-10" />
+                        </a>
                     </div>
                 </div>
             </div>
